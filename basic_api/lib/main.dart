@@ -1,3 +1,5 @@
+import 'package:basic_api/data/model/news_model.dart';
+import 'package:basic_api/ui/detail_page.dart';
 import 'package:basic_api/ui/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       
-      home: HomePage() ,
+     initialRoute: HomePage.routeName,
+     routes: {
+      HomePage.routeName :(context) => const HomePage(),
+      DetailPage.routeName :(context) => DetailPage(
+        productModel: ModalRoute.of(context)?.settings.arguments as ProductModel)
+
+
+     },
     );
   }
 }

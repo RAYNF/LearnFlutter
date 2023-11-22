@@ -4,6 +4,7 @@ import 'package:basic_api/widget/card_article.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/home-page';
   const HomePage({super.key});
 
   @override
