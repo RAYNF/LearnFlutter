@@ -1,62 +1,86 @@
-class ArticleResult {
-  String status;
-  int totalResults;
-  List<Article> articles;
 
-  ArticleResult({
-    required this.status,
-    required this.totalResults,
-    required this.articles,
-  });
 
-  factory ArticleResult.fromJson(Map<String, dynamic> json) => ArticleResult(
-        status: json["status"],
-        totalResults: json["totalResults"],
-        articles: List<Article>.from((json['articles'] as List)
-      .map((x) => Article.fromJson(x))
-      .where((article) => 
-      article.author != null &&
-      article.description != null &&
-      article.urlToImage != null &&
-      article.publishedAt != null &&
-      article.content != null))
-      );
+import 'dart:convert';
 
-  
+class ProductModel {
+    final int id;
+    final String title;
+    final int price;
+    final String description;
+    final List<String> images;
+    final DateTime creationAt;
+    final DateTime updatedAt;
+    final Category category;
+
+    ProductModel({
+        required this.id,
+        required this.title,
+        required this.price,
+        required this.description,
+        required this.images,
+        required this.creationAt,
+        required this.updatedAt,
+        required this.category,
+    });
+
+   
+
+    factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+        id: json["id"] ?? 0,
+        title: json["title"] ?? '',
+        price: json["price"] ?? 0,
+        description: json["description"] ?? '',
+        images: List<String>.from(json["images"].map((x) => x)),
+        creationAt: DateTime.parse(json["creationAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        category: Category.fromMap(json["category"]),
+    );
+
+    Map<String, dynamic> toMap() => {
+        "id": id,
+        "title": title,
+        "price": price,
+        "description": description,
+        "images": List<dynamic>.from(images.map((x) => x)),
+        "creationAt": creationAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "category": category.toMap(),
+    };
 }
 
-class Article {
+class Category {
+    final int id;
+    final String name;
+    final String image;
+    final DateTime creationAt;
+    final DateTime updatedAt;
 
-  String? author;
-  String title;
-  String? description;
-  String url;
-  String? urlToImage;
-  DateTime? publishedAt;
-  String? content;
+    Category({
+        required this.id,
+        required this.name,
+        required this.image,
+        required this.creationAt,
+        required this.updatedAt,
+    });
 
-  Article({
+    factory Category.fromJson(String str) => Category.fromMap(json.decode(str));
 
-    required this.author,
-    required this.title,
-    required this.description,
-    required this.url,
-    required this.urlToImage,
-    required this.publishedAt,
-    required this.content,
-  });
+    String toJson() => json.encode(toMap());
 
-  factory Article.fromJson(Map<String, dynamic> json) => Article(
-       
-        author: json["author"],
-        title: json["title"],
-        description: json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"],
-        publishedAt: DateTime.parse(json["publishedAt"]),
-        content: json["content"],
-      );
+    factory Category.fromMap(Map<String, dynamic> json) => Category(
+        id: json["id"],
+        name: json["name"],
+        image: json["image"],
+        creationAt: DateTime.parse(json["creationAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+    );
 
- 
+    Map<String, dynamic> toMap() => {
+        "id": id,
+        "name": name,
+        "image": image,
+        "creationAt": creationAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+    };
 }
 

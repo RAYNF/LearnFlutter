@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<ArticleResult> _article;
+  late Future<List<ProductModel>> _article;
 
   void initState() {
     super.initState();
@@ -21,39 +21,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  FutureBuilder<ArticleResult>(
+      body: FutureBuilder<List<ProductModel>>(
         future: _article,
-        builder: (context, AsyncSnapshot<ArticleResult> snapshot) {
-          var state = snapshot.connectionState;
-          if (state != ConnectionState.done) {
-            return const Center(
-              child: CircularProgressIndicator(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                var article = snapshot.data![index];
+                return CardArticle(article: article);
+              },
             );
-          } else {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data?.articles.length,
-                  itemBuilder: (context, index) {
-                    var article = snapshot.data?.articles[index];
-                    return  
-                    
-                    CardArticle(article: article!);
-                  });
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(snapshot.error.toString()),
-              );
-            } else {
-              return const Material(
-                child: Text('error'),
-              );
-            }
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
           }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.navigation),
+      ),
     );
-    
-   
   }
 }
