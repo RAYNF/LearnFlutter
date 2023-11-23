@@ -8,9 +8,7 @@ class ProductModel {
     final int price;
     final String description;
     final List<String> images;
-    final DateTime creationAt;
-    final DateTime updatedAt;
-    final Category category;
+ 
 
     ProductModel({
         required this.id,
@@ -18,9 +16,7 @@ class ProductModel {
         required this.price,
         required this.description,
         required this.images,
-        required this.creationAt,
-        required this.updatedAt,
-        required this.category,
+     
     });
 
    
@@ -31,9 +27,7 @@ class ProductModel {
         price: json["price"] ?? 0,
         description: json["description"] ?? '',
         images: List<String>.from(json["images"].map((x) => x)),
-        creationAt: DateTime.parse(json["creationAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        category: Category.fromMap(json["category"]),
+       
     );
 
     Map<String, dynamic> toMap() => {
@@ -42,45 +36,9 @@ class ProductModel {
         "price": price,
         "description": description,
         "images": List<dynamic>.from(images.map((x) => x)),
-        "creationAt": creationAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "category": category.toMap(),
+       
     };
 }
 
-class Category {
-    final int id;
-    final String name;
-    final String image;
-    final DateTime creationAt;
-    final DateTime updatedAt;
 
-    Category({
-        required this.id,
-        required this.name,
-        required this.image,
-        required this.creationAt,
-        required this.updatedAt,
-    });
-
-    factory Category.fromJson(String str) => Category.fromMap(json.decode(str));
-
-    String toJson() => json.encode(toMap());
-
-    factory Category.fromMap(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        image: json["image"],
-        creationAt: DateTime.parse(json["creationAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-    );
-
-    Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
-        "image": image,
-        "creationAt": creationAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-    };
-}
 

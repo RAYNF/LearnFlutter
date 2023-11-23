@@ -3,8 +3,8 @@ import 'package:basic_api/ui/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class CardArticle extends StatelessWidget {
-  final ProductModel article;
-  const CardArticle({super.key, required this.article});
+  final ProductModel productModel;
+  const CardArticle({super.key, required this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +12,17 @@ class CardArticle extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         leading: Hero(
-          tag: article.images[1],
+          tag: productModel.images[0],
           child: Image.network(
-            '${article.images[1]}',
+            '${productModel.images[0]}',
             width: 100,
           ),
         ),
-        title: Text(article.title),
-        subtitle: Text(article.price.toString()),
+        title: Text(productModel.title),
+        subtitle: Text(productModel.price.toString()),
         onLongPress: () async {
           Navigator.pushNamed(context, DetailPage.routeName,
-              arguments: article);
+              arguments: productModel);
         },
       ),
     );

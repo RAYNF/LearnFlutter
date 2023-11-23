@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       
      initialRoute: HomePage.routeName,
      routes: {
-      HomePage.routeName :(context) => const HomePage(),
+      HomePage.routeName :(context) =>  HomePage(),
       DetailPage.routeName :(context) => DetailPage(
         productModel: ModalRoute.of(context)?.settings.arguments as ProductModel)
 
