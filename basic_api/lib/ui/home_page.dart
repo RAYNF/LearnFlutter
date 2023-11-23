@@ -15,6 +15,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   
   late Future<List<ProductModel>> _article;
+  late Future<ProductModel> _album;
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -37,7 +39,15 @@ class _HomePageState extends State<HomePage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 var article = snapshot.data![index];
-                return CardArticle(productModel: article);
+                return Column(
+                  children: [
+                    CardArticle(productModel: article),
+                    ElevatedButton(
+                      onPressed: (){
+                        _album = ApiService().delete(snapshot.data![index].id.toString());
+                    }, child: Icon(Icons.remove))
+                  ],
+                );
               },
             );
           } else if (snapshot.hasError) {
@@ -57,6 +67,7 @@ class _HomePageState extends State<HomePage> {
               return AlertDialog(
                 title: const Text('Basic dialog title'),
                 content: Column(
+                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextField(
@@ -92,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                     child: const Text('Enable'),
                     onPressed: () {
                      setState(() {
-                       _article = ApiService().create(_titleController.text,int.parse(_priceController.text),_descriptionController.text, int.parse(_categoryIdController.text), _imagesController.text) ;
+                       _album = ApiService().create(_titleController.text,int.parse(_priceController.text),_descriptionController.text, int.parse(_categoryIdController.text), _imagesController.text);
                      });
                     },
                   ),

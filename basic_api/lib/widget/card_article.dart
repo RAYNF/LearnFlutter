@@ -20,6 +20,7 @@ class CardArticle extends StatelessWidget {
         ),
         title: Text(productModel.title),
         subtitle: Text(productModel.price.toString()),
+        
         onLongPress: () async {
           Navigator.pushNamed(context, DetailPage.routeName,
               arguments: productModel);

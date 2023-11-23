@@ -4,7 +4,7 @@ import 'package:basic_api/data/model/news_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String _baseUrl = 'https://api.escuelajs.co/api/v1/products/';
+  static const String _baseUrl = 'https://api.escuelajs.co/api/v1/products';
 
   Future<List<ProductModel>> GetNews() async {
     final response = await http.get(Uri.parse("${_baseUrl}"));
@@ -23,7 +23,7 @@ class ApiService {
     final reponse = await http.post(
       Uri.parse('${_baseUrl}'),
       headers: <String,String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
       },
       body: jsonEncode(<String,dynamic>{
        'title' : title, 
@@ -39,5 +39,20 @@ class ApiService {
       throw Exception('failed to post');
     }
   }
-  
+
+  Future<ProductModel> delete (String id)async{
+    final http.Response response = await http.delete(
+      Uri.parse('$_baseUrl/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    ); 
+    if(response.statusCode==200){
+      return ProductModel.fromJson(jsonDecode(response.body));
+    }else{
+      throw Exception('failed');
+    }
+
+}
+
 }
