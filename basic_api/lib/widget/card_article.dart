@@ -1,5 +1,6 @@
-import 'package:basic_api/data/model/news_model.dart';
+import 'package:basic_api/data/model/model_request.dart';
 import 'package:basic_api/ui/detail_page.dart';
+import 'package:basic_api/ui/edit_page.dart';
 import 'package:flutter/material.dart';
 
 class CardArticle extends StatelessWidget {
@@ -20,10 +21,11 @@ class CardArticle extends StatelessWidget {
         ),
         title: Text(productModel.title),
         subtitle: Text(productModel.price.toString()),
-        
         onLongPress: () async {
           Navigator.pushNamed(context, DetailPage.routeName,
               arguments: productModel);
+
+        
         },
       ),
     );

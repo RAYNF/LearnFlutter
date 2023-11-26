@@ -1,6 +1,7 @@
-import 'package:basic_api/data/model/news_model.dart';
+import 'package:basic_api/data/model/model_request.dart';
 import 'package:basic_api/ui/detail_page.dart';
 import 'package:basic_api/ui/home_page.dart';
+import 'package:basic_api/ui/edit_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,17 +16,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      
-     initialRoute: HomePage.routeName,
-     routes: {
-      HomePage.routeName :(context) =>  HomePage(),
-      DetailPage.routeName :(context) => DetailPage(
-        productModel: ModalRoute.of(context)?.settings.arguments as ProductModel)
-
-
-     },
+      initialRoute: HomePage.routeName,
+      routes: {
+        HomePage.routeName: (context) => HomePage(),
+        DetailPage.routeName: (context) => DetailPage(
+            productModel:
+                ModalRoute.of(context)?.settings.arguments as ProductModel),
+        UpdatePage.routeName: (context) => UpdatePage(
+            productModel:
+                ModalRoute.of(context)?.settings.arguments as ProductModel)
+      },
     );
   }
 }
-
-

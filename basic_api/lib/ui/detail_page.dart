@@ -1,4 +1,5 @@
-import 'package:basic_api/data/model/news_model.dart';
+import 'package:basic_api/data/model/model_request.dart';
+import 'package:basic_api/ui/edit_page.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
@@ -10,6 +11,13 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, UpdatePage.routeName,arguments: productModel);
+          }, icon: Icon(Icons.edit))
+        ],
+      ),
       body: SafeArea(
           child: ListView(
         children: [

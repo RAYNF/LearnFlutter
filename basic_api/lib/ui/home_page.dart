@@ -1,11 +1,13 @@
 import 'package:basic_api/data/api/api_service.dart';
-import 'package:basic_api/data/model/news_model.dart';
+import 'package:basic_api/data/model/model_post.dart';
+import 'package:basic_api/data/model/model_request.dart';
+import 'package:basic_api/ui/edit_page.dart';
 import 'package:basic_api/widget/card_article.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
-   
+
   HomePage({super.key});
 
   @override
@@ -13,7 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   late Future<List<ProductModel>> _article;
   late Future<ProductModel> _album;
 
@@ -26,6 +27,15 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _article = ApiService().GetNews();
+  }
+
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+    _priceController.dispose();
+    _descriptionController.dispose();
+    _categoryIdController.dispose();
+    _imagesController.dispose();
   }
 
   @override
@@ -43,9 +53,17 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     CardArticle(productModel: article),
                     ElevatedButton(
-                      onPressed: (){
-                        _album = ApiService().delete(snapshot.data![index].id.toString());
-                    }, child: Icon(Icons.remove))
+                        onPressed: () {
+                          _album = ApiService()
+                              .delete(snapshot.data![index].id) as Future<ProductModel>;
+                        },
+                        child: Icon(Icons.remove)),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, UpdatePage.routeName,
+                              arguments: article);
+                        },
+                        child: Icon(Icons.edit))
                   ],
                 );
               },
@@ -101,10 +119,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TextButton(
                     child: const Text('Enable'),
-                    onPressed: () {
-                     setState(() {
-                       _album = ApiService().create(_titleController.text,int.parse(_priceController.text),_descriptionController.text, int.parse(_categoryIdController.text), _imagesController.text);
-                     });
+                    onPressed: () async {
+                      final model = ProductsRequestModel(
+                          categoryId:int.parse(_categoryIdController.text),
+                          title: _titleController.text,
+                          price: int.parse(_priceController.text),
+                          description: _descriptionController.text);
+                      final response = await ApiService().create(model);
                     },
                   ),
                 ],
