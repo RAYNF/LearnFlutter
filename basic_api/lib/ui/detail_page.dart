@@ -21,13 +21,13 @@ class DetailPage extends StatelessWidget {
       body: SafeArea(
           child: ListView(
         children: [
-          Hero(
-            tag: productModel.images[0],
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Image.network('${productModel.images[0]}'),
-            ),
-          ),
+          // Hero(
+          //   tag: productModel.images[0],
+          //   child: Container(
+          //     width: MediaQuery.of(context).size.width,
+          //     child: Image.network('${productModel.images[0]}'),
+          //   ),
+          // ),
           Padding(
             padding: EdgeInsets.all(10),
             child: Column(

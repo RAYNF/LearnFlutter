@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
+
 
 class ProductsRequestModel {
   final String title;
@@ -12,7 +12,7 @@ class ProductsRequestModel {
     required this.title,
     required this.price,
     required this.description,
-    required this.categoryId ,
+     this.categoryId =1 ,
     this.images = const ["https://placeimg.com/640/480/any"],
   });
 
@@ -26,7 +26,7 @@ class ProductsRequestModel {
         title: json["title"],
         price: json["price"],
         description: json["description"],
-        categoryId: json["categoryId"] ?? Random().nextInt(100),
+        categoryId: json["categoryId"] ?? 0 ,
         images: List<String>.from(json["images"].map((x) => x)),
       );
 

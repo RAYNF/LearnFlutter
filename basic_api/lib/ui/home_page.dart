@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Future<List<ProductModel>> _article;
   late Future<ProductModel> _album;
+  late Future<ProductsRequestModel> _albumDelete;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                     ElevatedButton(
                         onPressed: () {
                           _album = ApiService()
-                              .delete(snapshot.data![index].id) as Future<ProductModel>;
+                              .delete(snapshot.data![index].id) ;
                         },
                         child: Icon(Icons.remove)),
                     ElevatedButton(
@@ -121,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                     child: const Text('Enable'),
                     onPressed: () async {
                       final model = ProductsRequestModel(
-                          categoryId:int.parse(_categoryIdController.text),
+                          // categoryId:int.parse(_categoryIdController.text),
                           title: _titleController.text,
                           price: int.parse(_priceController.text),
                           description: _descriptionController.text);

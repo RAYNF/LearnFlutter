@@ -21,7 +21,7 @@ class ApiService {
   }
 
   Future<ProductModel> create(ProductsRequestModel model) async {
-    final response = await http.post(Uri.parse('${_baseUrl}'),
+    final response = await http.post(Uri.parse('$_baseUrl'),
         body: model.toJson(), headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 201) {
@@ -64,15 +64,15 @@ class ApiService {
   // }
 
 //masih bug
-  Future<ProductsRequestModel> delete(int id) async {
-    final http.Response response = await http.delete(
-      Uri.parse('$_baseUrl$id'),
+  Future<ProductModel> delete(int id) async {
+    final  response = await http.delete(
+      Uri.parse('https://api.escuelajs.co/api/v1/products/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
     if (response.statusCode == 200) {
-      return ProductsRequestModel.fromJson(response.body);
+      return ProductModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.statusCode.toString());
     }

@@ -12,13 +12,13 @@ class CardArticle extends StatelessWidget {
     return Material(
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        leading: Hero(
-          tag: productModel.images[0],
-          child: Image.network(
-            '${productModel.images[0]}',
-            width: 100,
-          ),
-        ),
+        // leading: Hero(
+        //   tag: productModel.images[0],
+        //   child: Image.network(
+        //     '${productModel.images[0]}',
+        //     width: 100,
+        //   ),
+        // ),
         title: Text(productModel.title),
         subtitle: Text(productModel.price.toString()),
         onLongPress: () async {
