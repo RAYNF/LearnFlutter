@@ -16,7 +16,7 @@ class _BerandaPageState extends State<BerandaPage> {
   List brgData = [];
   Future<void> baca_data() async {
     String url =
-        "http://localhost/belajar/LearnFlutter/connect_mysql/lib/data/koneksi/konkesi.php";
+        "http://localhost/belajar/LearnFlutter/connect_mysql/lib/data/koneksi/koneksi.php";
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
